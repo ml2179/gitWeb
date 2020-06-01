@@ -1,0 +1,205 @@
+// JavaScript Document
+$(function(){
+		   
+	//给全局绑定touchstart事件，为了更兼容active替代hover在移动端中的效果	   
+	//document.body.addEventListener('touchstart',function(){}); 	
+	
+	//设置整体比例
+	/*10px = 0.1rem*/
+	var scale = $("body").width()/1920;
+	$("html").css("font-size",100 * scale + 'px');
+	$(window).resize(function(){
+		var scale = $("body").width()/1920;
+		$("html").css("font-size",100 * scale + 'px');					  
+	});
+	
+    //顶部--当小于768px时变成底部手机端
+    wwHF();
+    $(window).resize(function(){wwHF();});
+    function wwHF(){
+        var $ww = $(window).width();
+		if($ww>980){
+			$(".Hnav").attr("style","");
+			$(".Hn2nd-box, .H-lang-box").attr("style","");
+			$(".Hlang-cur").removeClass("cur");
+		}
+		$ww>768?$(".Footer-wrapper").addClass("on"):$(".Footer-wrapper").removeClass("on");
+    }
+			
+	//浏览器窗口改变时，移除所有的动画		
+	var resizeTime;
+	$(window).resize(function(){
+		clearInterval(resizeTime);
+		$("body").addClass("resizing");
+		resizeTime = setTimeout(function(){
+			$("body").removeClass("resizing");
+			clearInterval(resizeTime);
+		},1000);
+	});
+	
+	/*-- 顶部 --*/
+	if($(".page-nav").length>0){
+		$(".Header-wrapper").addClass("Header-page");		
+		$(window).scroll(function(){
+			$(".page-nav").css("top",70 - $(window).scrollTop() <= 0 ? 0 : 70 - $(window).scrollTop())
+		});
+	}
+	
+	// $(".Hlang-cur").bind("click",function(){
+	// 	if($(window).width() >980) return false;
+	// 	$(this).hasClass("cur")?$(this).removeClass("cur").siblings(".H-lang-box").slideUp(300):$(this).addClass("cur").siblings(".H-lang-box").slideDown(300);
+	// });
+	
+	$(".Hsrch .Hsrch-menu").bind("click",function(){
+		if($(".Header-wrapper .Hmenu-btn-web").hasClass("cur")) $(".Header-wrapper .Hmenu-btn-web").removeClass("cur").siblings(".Hnav").hide();
+		$(this).hasClass("cur")?$(this).removeClass("cur").siblings(".Hsrch-box").slideUp(300):$(this).addClass("cur").siblings(".Hsrch-box").slideDown(300);
+	});
+		
+	$(".Hnav>li").hover(function(){
+		if($(window).width()<=980) return false;
+		$(this).find(".Hn2nd-box, .Hn2nd-dd").stop().slideDown(300);
+	},function(){
+		if($(window).width()<=980) return false;
+		$(this).find(".Hn2nd-box, .Hn2nd-dd").stop().slideUp(300);
+	});
+	
+	//手机端下拉
+	$(".Header-wrapper .Hmenu-btn").bind("click",function(){
+		if($(this).hasClass("cur")){
+			$(this).removeClass("cur").siblings(".Hnav").slideUp(300);
+		}else{
+			if($(".Hsrch-menu").hasClass("cur")) $(".Hsrch-menu").removeClass("cur").siblings(".Hsrch-box").hide();
+			$(".Hnav").css("height","auto");
+			$(".Hnav")[0].scrollHeight>$(window).height()-$(".Header-cl").height()?$(".Hnav").css("height",$(window).height()-$(".Header-cl").height()):$(".Hnav").css("height","auto");
+			$(this).addClass("cur").siblings(".Hnav").slideDown(300);
+		}
+	});	
+	$(".Hnav .Hname").bind("click",function(){
+		if($(window).width()<=980){
+			if($(this).siblings(".Hn2nd-box").length > 0){
+				if($(this).hasClass("cur")){
+					$(this).removeClass("cur").siblings(".Hn2nd-box").slideUp(300,function(){
+						$(".Hnav")[0].scrollHeight>$(window).height()-$(".Header-cl").height()?$(".Hnav").css({"height":$(window).height()-$(".Header-cl").height(),"overflow-y":"scroll"}):$(".Hnav").css({"height":"auto","overflow-y":"auto"});	
+					});
+				}else{
+					$(".Hnav .Hname").removeClass("cur").siblings(".Hn2nd-box").slideUp(300);
+					$(this).addClass("cur").siblings(".Hn2nd-box").slideDown(300,function(){
+						$(".Hnav").css("height","auto");
+						$(".Hnav")[0].scrollHeight>$(window).height()-$(".Header-cl").height()?$(".Hnav").css({"height":$(window).height()-$(".Header-cl").height(),"overflow-y":"scroll"}):$(".Hnav").css({"height":"auto","overflow-y":"auto"});
+					});
+				}
+				return false;
+			}
+		}
+	})
+	
+	/*-- 底部 --*/
+	$(".Fnav dt").bind("click",function(){
+		if($(window).width()>768) return false;
+		if($(this).hasClass("cur")){
+			$(this).removeClass("cur").siblings("dd").slideUp(300);
+		}else{
+			$(".Fnav dt").removeClass("cur").siblings("dd").slideUp(300);
+			$(this).addClass("cur").siblings("dd").slideDown(300);
+		}
+	});
+	
+	
+		
+	//下移
+	$(".page-dd").bind("click",function(){
+		$("html,body").animate({"scrollTop":$(".Header-cl").height() + $(".banner-container").height()},600);
+	})
+	
+	$(".Flink").bind("change",function(){
+		window.open($(this).find("option:selected").attr("data-url"));
+		$(this).find("option").eq(0).attr("selected", true);
+	});
+    
+
+})
+
+/*--返回顶部动画--*/
+//goTop(500);//500ms内滚回顶部
+function goTop(times,fn){
+	if (navigator.userAgent.indexOf('Firefox') >= 0){//firefox专用()
+		document.documentElement.scrollTop=0;
+	}
+	if(!!!times){
+		$(window).scrollTop(0);
+		return;
+	}
+	var sh=$('body').scrollTop();//移动总距离
+	var inter=13.333;//ms,每次移动间隔时间
+	var forCount=Math.ceil(times/inter);//移动次数
+	var stepL=Math.ceil(sh/forCount);//移动步长
+	var timeId=null;
+	function ani(){
+		!!timeId&&clearTimeout(timeId);
+		timeId=null;
+		//console.log($('body').scrollTop());
+		if($('body').scrollTop()<=0||forCount<=0){//移动端判断次数好些，因为移动端的scroll事件触发不频繁，有可能检测不到有<=0的情况
+			$('body').scrollTop(0);
+			if(jQuery.isFunction(fn))fn();
+			return true;
+		}
+		forCount--;
+		sh-=stepL;
+		$('body').scrollTop(sh);
+		timeId=setTimeout(function(){ani();},inter);
+	}
+	ani();
+}
+
+/*--判断是否为IE9及以下版本--*/
+function IE(fn){
+	if(navigator.userAgent.indexOf("MSIE")>0){     
+		if( (navigator.userAgent.indexOf("MSIE 7.0")>0) || (navigator.userAgent.indexOf("MSIE 8.0")>0) ||(navigator.userAgent.indexOf("MSIE 9.0")>0 && !window.innerWidth) || (navigator.userAgent.indexOf("MSIE 9.0")>0)){ 
+			fn(); 
+			return true;
+		}
+	}
+}
+
+/* 滚动效果1
+function isScrolledIntoView(elem) {
+	var docViewTop = $(window).scrollTop();
+	var docViewBottom = docViewTop + $(window).height();
+	var elemTop = $(elem).offset().top;
+	if (elemTop - $(elem).height()/3 < docViewTop) {
+		return true;
+	}
+} */
+
+/* 滚动效果1 */
+function isScrolledIntoView(elem){
+	var scrHeight = window.screen.availHeight;
+	var boxPos = $(elem).offset().top;	
+	var winPos = $(window).scrollTop()+scrHeight-500;
+	if(boxPos<winPos){return true}
+}
+
+
+/* 滚动效果2 */
+function scrollArrty(scrollArrtyData){
+	var scrollArrty = scrollArrtyData;
+	var scrI = 0;
+	var scrHeight = window.screen.availHeight;	
+	$(window).scroll(function(){scrollFn();})
+	function scrollFn(){		
+		if(scrI==scrollArrty.length){return false;}
+		if($(scrollArrty[scrI]).length == 0){
+			scrI++;
+			if(scrI<scrollArrty.length){scrollFn();}else{return false;}
+		}
+		var boxPos = $(scrollArrty[scrI]).offset().top;	
+		var winPos = $(window).scrollTop()+scrHeight-300;
+		if(boxPos<winPos){
+			$(scrollArrty[scrI]).addClass('active');
+			scrI++;
+			if(scrI<scrollArrty.length){scrollFn();
+			}else{return false;}
+		}else{return false;}
+	}
+	scrollFn();
+}

@@ -1,0 +1,185 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*通用*/
+*{ box-sizing:border-box;}
+*::before, *::after{ box-sizing:border-box;}
+*:focus{ outline:none;}
+html{ -ms-touch-action: none;  /* 阻止windows Phone 的默认触摸事件 */}
+/*兼容iphone去除默认input表单默认设置*/
+input[type="submit"],input[type="reset"],input[type="button"],button { -webkit-appearance: none;}
+/*图片默认样式*/
+img{border:0;vertical-align: middle;}
+/*动画效果*/
+*{transition-property:all;}
+.com-img img{ transition:all 0.4s ease-in 0s; -webkit-transition:all 0.4s ease-in 0s; -moz-transition:all 0.4s ease-in 0s; -o-transition:all 0.4s ease-in 0s;}
+.com-img:hover img{transform:scale(1.1); -webkit-transform:scale(1.1); -moz-transform:scale(1.1); -o-transform:scale(1.1);-ms-transform:scale(1.1);}
+
+.fl{float:left;}
+.fr{float:right;}
+.cl{clear:both;}
+.show{display:block;}
+.hide{display:none;}
+
+.f18{font-size:18px !important;}
+.f16{font-size:16px !important;}
+.f14{font-size:14px !important;}
+.f12{font-size:12px !important;}
+
+.mt5{margin-top:5px;}
+.mt10{margin-top:10px;}
+.mt20{margin-top:20px;}
+
+.ml5{margin-left:5px;}
+
+.taC{text-align:center;}
+.taL{text-align:left;}
+.taR{text-align:right;}
+
+.ttU{text-transform:uppercase;}
+
+.ofH{overflow:hidden;}
+.ofA{overflow:visible !important;}
+
+.fwB{font-weight:600;}
+
+.vaM{vertical-align:middle;}
+
+.pr{position:relative;}
+
+/*字体*/
+@font-face {
+    font-family:'CenturyGothic';
+    src: url('../fonts/CenturyGothic.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family:'CenturyGothic Bold';
+    src: url('../fonts/CenturyGothic Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/*flex*/
+.flex{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}
+.flex-v{-webkit-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}
+.flex-2{-webkit-box-flex:2;-webkit-flex:2;-ms-flex:2;flex:2;}
+.flex-3{-webkit-box-flex:3;-webkit-flex:3;-ms-flex:3;flex:3;}
+.flex-align-center{-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;}
+.flex-pack-center{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}
+.flex-pack-justify{-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}
+
+.flex-1
+{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;}
+
+.vertical-container
+{display: -webkit-flex;display: flex;-webkit-align-items: center;align-items: center;-webkit-justify-content: center;justify-content: center;}
+
+
+/*限制行数 -- 一行*/
+.line1,
+.Hn2nd-list li a,
+.Idata-left li .num,
+.Idata-left li .type,
+.Inews-block .name,
+.mItemCtry-box .list li,
+.nlist-box .name,
+.picDataComAct-box .name,
+.InvGvrcBODC-intro-nav a .name,
+.InvReportNewest-block .name,
+.InvReport-box .name,
+.InvIRC-box .name,
+.InvFAQ-list li .quest,
+.tdIntro-box .name,
+.picDataModal-contain .picDataModal-name,
+.vlist-box .name
+{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/*限制行数 -- 当字号为12px,line-height为25时，限制高为50，如有改变，自行设置高度,为了兼容不支持line-clamp属性的浏览器*/
+.line2,
+.NEPbidAnnc-box .name,
+.nlist-box .con,
+.aIr-page li .name
+{-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-moz-line-clamp:2;-o-line-clamp:2;-webkit-box-orient:vertical;}
+
+.line3,
+.Inews-block .con,
+.comHonor-swiper .swiper-slide .con,
+.NEPbidAnnc-box .con,
+.tdIntro-box .con
+{-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-moz-line-clamp:3;-o-line-clamp:3;-webkit-box-orient:vertical;}
+
+
+/*动画*/
+a:hover
+{-moz-transition: all 0.5s ease-out;-o-transition: all 0.5s ease-out;-webkit-transition: all 0.5s ease-out;transition: all 0.5s ease-out;}
+
+
+.animation,
+.Hn2nd-list a:after,
+.Ipro-block .btn span,
+.IabUs-box .IabUs-icon,
+.IabUs-box .IabUs-icon img,
+.IabUs-box:after,
+.IabUs-box .IabUs-block,
+.IabUs-wrap,
+.index-abUs,
+.Hn2nd-nav .type:after,
+.auCp-box,
+.abUs-comData ul li,
+.auChonor-block:before,
+.auChonor-block:after,
+.auChonor-con
+{-moz-transition: all 0.3s ease-out;-o-transition: all 0.3s ease-out;-webkit-transition: all 0.3s ease-out;transition: all 0.3s ease-out;}
+
+.index-media .Imedia-btn,
+.iBnr1-box,
+.csCbnr-box,
+.auChonor-block:after,
+.auChonor-con,
+.iBnr4-box
+{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%);}
+
+.Inews-1st img,
+.HcommSrv-left .bg img,
+.csIbrief-img img,
+.auCv-img img,
+.IFT-img img{width:100%;height:100%;object-fit:cover;}
+
+
+
+.cTeamModal-contain, .cInvest-con, .picData-modal .picDataModal-contain, .CIUAV-box, .tdIntroModal-contain {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+}
+
+
+/*滚动条*/
+.viewport { overflow: hidden; position: relative; /*width:0px; height: 0px;*/}/*内容可视区域的宽高*/
+.overview { list-style: none; position: absolute; left: 0; top: 0; /*width:0px; height: 0px;*/}  /*内容可视区域的宽高*/
+.scrollbar{position: relative;  float: right; position:relative;  display:inline; z-index:400; z-index:2;/*width:0px; height:0px;background-color:#afafaf;*/}/*滚动条的宽高颜色*/
+.track{ position: relative; /*width:0px;*/}/*滚动条的宽*/
+.thumb{cursor: pointer; position: absolute; top:0; left:0px; z-index:400;/*width:0px;background-color:#afafaf;*/}/*滚动条-当前条的宽 left 颜色*/
+.disable{ display: none; }  
+.noSelect { user-select:none;}
+
+/*分页*/
+.pagination{width:100%;height:auto;text-align:center;position:relative;overflow:hidden;}/*分页*/
+.pagination a,
+.pagination .laypage_curr{display:inline-block;width:auto;padding:0 10px;height:30px;line-height:28px;text-align:center;font-family:'宋体';border:1px solid #c7c7c7;margin:0 5px;}
+.pagination a.on, .pagination a:hover,
+.pagination .laypage_curr{background-color:#0994DC;color:#ffffff;border-color:#0994DC;}
+
+
+.swiper-pagination .swiper-pagination-bullet{width:11px;height:11px;background:#a6a6a6;opacity:1;margin:0 6px;}
+.swiper-pagination .swiper-pagination-bullet-active{background:#6af162;}
+

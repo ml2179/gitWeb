@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>利人生物科技（深圳）有限公司</title>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<meta name="keywords" content="利人生物科技（深圳）有限公司" />
+	<meta name="description" content="利人生物科技（深圳）有限公司" />
+	<meta name="author" content="" />
+	<!-- 控制缩放比例 -->
+	<meta name="viewport"
+		content="initial-scale=1.0,width=device-width,height=device-height,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<!-- 不让百度转码 -->
+	<meta http-equiv="Cache-Control" content="no-transform" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+	<!--  css -->
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<link rel="stylesheet" type="text/css" href="css/mobile.css">
+	<link rel="stylesheet" type="text/css" href="css/media.css">
+	<!-- js -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/JavaScript" src="js/zh_class.js"></script>
+	<!-- js -->
+	<script type="text/javascript" src="js/custom.js"></script>
+
+
+	<!-- <script type="text/javascript" src="/APP/Public/Home/js/cookie.js"></script> -->
+
+	<link rel="Shortcut Icon" href="" />
+	<script type="text/javascript">
+		$(function () {
+			$(".index-news .news-tab a").hover(function () {				
+				if (!$(this).hasClass("cur")) {
+					var idx = $(this).index();
+					$(this).addClass("cur").siblings().removeClass("cur");
+					$(".swiper-list .news-swiper").eq(idx).addClass("cur").siblings().removeClass("cur");
+
+					//要重新初始化    全部为dispaly:block就不会 ,bug?
+					newsSwiper1.init();
+					newsSwiper2.init();
+					newsSwiper3.init();
+				}
+			});		
+			var indexBnrSwiper = new Swiper('#index-bnr .swiper-container', {
+				pagination: '#index-bnr .swiper-pagination',
+				autoplay: 4000,
+				effect: 'fade',
+				speed: 1000,
+				prevButton: '',
+				nextButton: '',
+				paginationClickable: true,
+				autoplayDisableOnInteraction: false,
+				onInit: function (swiper) {					
+					$('#index-bnr .swiper-pagination .swiper-pagination-bullet').html("<i></i>");
+					$('#index-bnr .swiper-pagination .swiper-pagination-bullet-active i').animate({ "left": 0 }, 4000, function () {
+						$('#index-bnr .swiper-pagination .swiper-pagination-bullet i').stop().css("left", "-100%");
+					});
+				},
+				onSlideChangeEnd: function () {
+					$('#index-bnr .swiper-pagination .swiper-pagination-bullet i').stop().css("left", "-100%");
+					$('#index-bnr .swiper-pagination .swiper-pagination-bullet-active i').animate({ "left": 0 }, 4000, function () {
+						$('#index-bnr .swiper-pagination .swiper-pagination-bullet i').stop().css("left", "-100%");
+					});
+				}
+			});
+
+			var indexWebBnrSwiper = new Swiper('#index-webBnr .swiper-container', {
+				pagination: '#index-webBnr .swiper-pagination',
+				autoplay: 4000,
+				effect: 'fade',
+				speed: 1000,
+				prevButton: '',
+				nextButton: '',
+				paginationClickable: true,
+				autoplayDisableOnInteraction: false
+			});
+
+			//视频
+			/* var MediaPlayer = null;
+			$(".index-media .btn").bind("click", function () {
+				$(".mediaModal-contain video source").attr("src", $(this).attr("data-src"));
+				if (MediaPlayer == null) MediaPlayer = new MediaElementPlayer($(".mediaModal-contain video"));
+				$("body").css("overflow-y", "hidden");
+				$(".media-modal").show();
+				$(".media-modal").animate({ "opacity": "1" }, 600);
+				$(".mediaModal-contain").slideDown(600);
+				setTimeout(function () { MediaPlayer.play(); }, 1000);
+			});
+			$(".mediaModal-contain .close").bind("click", function () {
+				MediaPlayer.pause();
+				$(".mediaModal-contain").slideUp();
+				$(".media-modal").animate({ "opacity": "0" }, 600, function () {
+					$(".media-modal").hide();
+					$("body").css("overflow-y", "auto");
+				});
+			}); */
+
+			//公司动态
+			var newsSwiper1 = new Swiper('#news-swiper1 .swiper-container', {
+				autoplay: 3000,
+				//effect:'fade',
+				speed: 1000,
+				prevButton: '#news-swiper1 .swiper-button-prev',
+				nextButton: '#news-swiper1 .swiper-button-next'
+
+			});
+			//媒体报道
+			var newsSwiper2 = new Swiper('#news-swiper2 .swiper-container', {
+				autoplay: 3000,
+				//effect:'fade',
+				speed: 1000,
+				prevButton: '#news-swiper2 .swiper-button-prev',
+				nextButton: '#news-swiper2 .swiper-button-next'
+
+			});
+			//公司 公告
+			var newsSwiper3 = new Swiper('#news-swiper3 .swiper-container', {
+				autoplay: 3000,
+				//effect:'fade',
+				speed: 1000,
+				prevButton: '#news-swiper3 .swiper-button-prev',
+				nextButton: '#news-swiper3 .swiper-button-next'
+
+			});
+			//产品中心
+			var productSwiper = new Swiper('.product-swiper .swiper-container', {
+				// pagination: '.swiper-pagination',
+
+				init: true,
+				centeredSlides: true,
+				// autoplay:2000,
+				// paginationClickable: true,
+				prevButton: '.product-swiper .swiper-button-prev',
+				nextButton: '.product-swiper .swiper-button-next',
+				onInit: function (swiper) {
+					var slides = swiper.slides.length;
+					$(".product-swiper .page-number .page-sum").each(function (idx, ele) {
+						$(ele).html(slides);
+					});
+
+					var curIndex = swiper.activeIndex + 1;
+					curIndex = curIndex > 9 ? curIndex : '0' + curIndex;
+					var curSlide = $(".product-swiper .swiper-slide.swiper-slide-active");
+					$(".product-swiper .page-number .cur").html(curIndex);
+				},
+				onSlideChangeEnd: function (swiper) {
+					//alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+					var curIndex = swiper.activeIndex + 1;
+					var left = swiper.activeIndex;
+					if (left > 0) left = left * 20;
+					curIndex = curIndex > 9 ? curIndex : '0' + curIndex;
+
+					$(".product-swiper .page-number .cur").html(curIndex);
+					var curSlide = $(".product-swiper .swiper-slide.swiper-slide-active");
+					curSlide.find(".page-progress .active").css({
+						"left": left + '%'
+					})
+				}
+
+			});	
+		});
+	</script>
+
+</head>
+
+<body>
+
+	<!-- Header -->
+
+	<div class="Header-wrapper">
+		<div class="Header-cl"></div>
+		<div class="header-container">
+			<a href="/" title="" class="Hlogo"><img src="images/20180508/5af1549909e98.png" alt="" class="" /></a>
+			<div class="Hmenu-btn"><a href="javascript:;" title=""></a></div>
+			<div class="Hsrch">
+				<a href="javascript:;" title="" class="Hsrch-menu"></a>
+				<div class="Hsrch-box">
+					<form action="search.html" method="post" id="topform">
+						<input type="text" placeholder="" class="text" name="top_key" id="top_key">
+						<input type="submit" value="" class="btn" id="top_btn">
+					</form>s
+					<i></i>
+				</div>
+			</div>
+			<div class="Hlang">
+				<!-- <a href="/en" title="" class="Hlang-cur">English</a> -->
+				<!--<div class="H-lang-box">
+              <a href="/en" class="zh_click EN" id="zh_click_s">English</a>
+            </div>-->
+			</div>
+			<ul class="Hnav">
+				<li class="cur"><a href="/" title="" class="Hname">首页</a></li>
+				<li>
+					<a href="compInfo/compInfo.html" title="" class="Hname">公司概况</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+							<li><a href="list-1.html#com_01">公司概况</a></li>
+
+							<li><a href="list-1.html#com_02">管理团队</a></li>
+
+							<li><a href="list-1.html#com_03">发展历程</a></li>
+
+							<li><a href="list-38.html">战略合作</a></li>
+							<li><a href="list-1.html#com_05">企业文化</a></li>
+
+							<li><a href="list-1.html#com_06">社会责任</a></li>
+
+							<li><a href="list-1.html#com_07">关怀、关注与报道</a></li>
+
+							<li><a href="list-49.html" title="">公司荣誉</a></li>
+						</ul>
+						<!-- <div class="Hn2nd-img com-img"><img src="../images/view/duty_03.png" alt=""/></div>    -->
+					</div>
+				</li>
+				<li>
+					<a href="list-2.html" title="" class="Hname">公司动态</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+
+							<li><a href="list-16.html" title="">公司动态</a></li>
+							<li><a href="list-17.html" title="">媒体报道</a></li>
+							<li><a href="list-43.html" title="">通知公告</a></li>
+						</ul>
+						<!-- <div class="Hn2nd-img com-img"><img src="../images/view/duty_03.png" alt=""/></div>    -->
+					</div>
+				</li>
+				<li>
+					<a href="list-3.html" title="" class="Hname">产品中心</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+
+							<li><a href="list-3.html#tech_01">技术平台</a></li>
+
+
+						</ul>
+						<!-- <div class="Hn2nd-img com-img"><img src="../images/view/duty_03.png" alt=""/></div>    -->
+					</div>
+				</li>
+				<!-- <li>
+					<a href="list-4.html" title="" class="Hname">研究开发</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+							<li><a href="list-4.html#tech_02">研发中心</a></li>
+
+							<li><a href="list-4.html#a1">产品及产品线</a></li>
+							<li><a href="list-4.html#tech_03">知识产权</a></li>
+
+						</ul>
+					</div>
+				</li> -->
+
+				<li>
+					<a href="list-5.html" title="" class="Hname">产业布局</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+							<li><a href="show-34.html" title="">深圳微芯生物科技股份有限公司（集团总部）</a></li>
+							<li><a href="show-33.html" title="">深圳微芯药业有限责任公司</a></li>
+							<li><a href="show-168.html" title="">成都微芯药业有限公司</a></li>
+						</ul>
+					</div>
+				</li>
+				<!-- <li>
+					<a href="list-6.html" title="" class="Hname">合作发展</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+
+							<li><a href="list-23.html" title="">合作发展</a></li>
+							<li><a href="list-23.html#tc_02">培训发展</a></li>
+
+							<li><a href="list-23.html#tc_03">薪酬福利</a></li>
+
+							<li><a href="list-23.html#tc_04">招聘岗位</a></li>
+
+							<li><a href="list-23.html#tc_05">团队建设</a></li>
+
+							<li><a href="list-23.html#tc_06">生活环境</a></li>
+
+
+						</ul>
+						 <div class="Hn2nd-img com-img"><img src="../images/view/duty_03.png" alt=""/></div>  
+					</div>
+				</li> -->
+				<li>
+					<a href="list-7.html" title="" class="Hname">合作发展</a>
+					<i class="Hn2nd-dd"></i>
+					<div class="Hn2nd-box clearfix">
+						<ul class="Hn2nd-list">
+
+							<li><a href="list-29.html" title="">信息公告</a></li>
+							<li><a href="list-32.html" title="">定期报告</a></li>
+							<li><a href="list-55.html" title="">投资者互动</a></li>
+						</ul>
+						<!-- <div class="Hn2nd-img com-img"><img src="../images/view/duty_03.png" alt=""/></div>    -->
+					</div>
+				</li>
+				<li>
+					<a href="show-1.html" title="" class="Hname">联系我们</a> <i class="Hn2nd-dd"></i>
+				</li>
+
+
+			</ul>
+		</div>
+	</div>
+	<script>
+		$("#top_btn").click(function () {
+			var top_key = $.trim($("#top_key").val());
+			if (top_key == '') { alert("请输入关键词"); return false; }
+			$("#topform").submit();
+		})
+	</script>
+
+	<!-- Banner -->
+	<div class="banner-container index-bnr" id="index-bnr">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<a href="" title="" class="bnr-img iBnr-1">
+						<div class="bnr-bg" style="background-image:url(images/20180515/20180515182108_50805.jpg);">
+						</div>
+						<div class="iBnr1-box">
+							<div class="t1">
+								原创 安全 优效 中国
+								<p style="font-size:24px;font-weight:lighter;">
+									Constant Innovation For Life
+								</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="swiper-slide">
+					<a href="" title="" class="bnr-img iBnr-2">
+						<div class="bnr-bg" style="background-image:url(images/20180703/20180703172408_76371.jpg);">
+						</div>
+						<div class="iBnr1-box">
+							<div class="t1">
+								中国创新药领军企业
+								<p style="font-size:24px;font-weight:lighter;">
+									<br />
+								</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="swiper-slide">
+					<a href="" title="" class="bnr-img iBnr-3">
+						<div class="bnr-bg" style="background-image:url(images/20180626/20180626174357_53321.jpg);">
+						</div>
+						<div class="iBnr1-box">
+							<div class="t1">
+								国家创新药孵化基地
+								<p style="font-size:24px;font-weight:lighter;">
+									<br />
+								</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<div class="banner-container index-bnr" id="index-webBnr">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><a href="" title="" class="bnr-img"
+						style="background-image:url(/Uploads/images/20180508/20180508075327_35795.jpg);"></a></div>
+				<div class="swiper-slide"><a href="" title="" class="bnr-img"
+						style="background-image:url(/Uploads/images/20180508/20180508075442_34584.png);"></a></div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+
+	<!--关于我们-->
+	<div class="Modules index-abUs">
+		<div class="contain">
+			<h4 class="title">关于我们</h4>
+			<div class="Msub"></div>
+			<div class="abUs-desc">
+				<p>
+					微芯生物于2001年3月成立，是中国小分子创新药领军企业。<br />
+					微芯生物以满足临床未被满足的需求为首任，坚持“原创、安全、优效、中国”，致力于为患者提供可承受的创新机制的治疗药物。<br />
+					微芯生物拥有深圳总部/研发中心/GMP生产基地、成都区域总部/研发中心/GMP生产基地、北京临床研究中心及上海商业中心，是四位一体的现代生物医药集团公司。
+				</p>
+			</div>
+			<a href="list-1.html" title="关于我们" class="more-btn"></a>
+		</div>
+	</div>
+
+	<!--视频-->
+	<!-- <div class="index-media">
+		<div class="bg">
+		</div>
+		<div class="orn1">
+		</div>
+		<div class="orn2">
+		</div>
+		<a href="javascript:;" title="企业宣传片" class="btn" data-src="/Uploads/file/20180521/20180521171055_32601.mp4"></a>
+		<div class="t2">
+			企业宣传片
+		</div>
+	</div> -->
+
+
+	<!--发展、责任、荣誉-->
+	<div class="index-cultrue">
+		<div class="contain">
+			<a href="list-6.html" class="cul-box">
+				<div class="cul-block com-img ofH">
+					<img src="images/20180605/20180605111936_27523.jpg" alt="" />
+					<div class="cul-cont">
+						<p>TALENT DEVELOPMENT</p>
+						<h4>人才发展</h4>
+						<span class="tr-ico">+</span>
+					</div>
+				</div>
+			</a>
+			<a href="list-1.html#com_06" class="cul-box">
+				<div class="cul-block com-img ofH">
+					<img src="images/20180605/20180605111913_98868.jpg" alt="" />
+					<div class="cul-cont">
+						<p>SOCIAL RESPONSIBILITY</p>
+						<h4>社会责任</h4>
+
+						<span class="tr-ico">+</span>
+					</div>
+				</div>
+			</a>
+			<a href="list-44.html" class="cul-box">
+				<div class="cul-block com-img ofH">
+					<img src="images/20180621/20180621180758_92619.jpg" alt="" />
+					<div class="cul-cont">
+						<p>ENVIRONMENTAL PROTECTION</p>
+						<h4>环境保护</h4>
+
+						<span class="tr-ico">+</span>
+					</div>
+				</div>
+			</a>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<!--首页新闻-->
+	<div class="Modules gray_bg index-news">
+		<div class="contain">
+			<h4 class="title">新闻中心</h4>
+			<div class="Msub"></div>
+			<div class="news-tab">
+				<a href="javascript:void(0);" class="cur">公司新闻</a>
+				<a href="javascript:void(0);">媒体报道</a>
+				<a href="javascript:void(0);">通知公告</a>
+			</div>
+			<div class="swiper-list">
+				<div class="news-swiper cur" id="news-swiper1">
+					<!-- Swiper -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="news-block">
+
+									<div class="left com-img ofH">
+										<a href="show-601.html" class="news-box">
+											<img src="images/20190812/5d512ef80040e.jpg" />
+											<div class="date">
+												<p class="p1">08/12</p>
+												<p class="p2">2019</p>
+											</div>
+											<div class="ndesc">
+												<p class="line2">微芯生物十八载迎来科创板上市，荣耀时刻感恩有您</p>
+												<i class="go-see"></i>
+											</div>
+										</a>
+									</div>
+									<div class="right">
+										<a href="show-191.html" class="news-box">
+											<div class="com-img ofH"><img src="images/20180620/5b2a338d95400.png" />
+											</div>
+
+											<div class="ndesc">
+												<p class="line1">西达本胺联合依西美坦在治疗激素受体阳性晚期乳腺癌患者中的关键性III期临床试验到达主要研究终点</p>
+
+												<span class="date">2018/05/29</span>
+												<!--<i class="go-see"></i>-->
+											</div>
+										</a>
+										<a href="show-402.html" class="news-box">
+											<div class="com-img ofH"><img src="images/20180620/5b2a33b7aaf23.png" />
+											</div>
+
+											<div class="ndesc">
+												<p class="line1">创新领航未来 专利铸就实力——贺微芯生物获中国专利金奖</p>
+
+												<span class="date">2017/12/14</span>
+												<!--<i class="go-see"></i>-->
+											</div>
+										</a>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<div class="swiper-line">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+
+					</div>
+				</div>
+				<div class="news-swiper " id="news-swiper2">
+					<!-- Swiper -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+
+							<div class="swiper-slide">
+								<div class="news-block">
+
+									<div class="left com-img ofH">
+										<a href="show-602.html" class="news-box">
+											<img src="images/20191225/5e02b7f167e98.jpg" />
+											<div class="date">
+												<p class="p1">08/13</p>
+												<p class="p2">2019</p>
+											</div>
+											<div class="ndesc">
+												<p class="line2">微芯生物首次公开发行A股上市仪式</p>
+												<i class="go-see"></i>
+											</div>
+										</a>
+									</div>
+									<div class="right">
+
+
+										<a href="show-455.html" class="news-box">
+											<div class="com-img ofH"><img src="images/20180619/5b28ced25e2ce.jpg" />
+											</div>
+
+											<div class="ndesc">
+												<p class="line1">《经济半小时》关注重大科技成果创新：进入医保的国产抗癌新药</p>
+
+												<span class="date">2017/08/31</span>
+												<!--<i class="go-see"></i>-->
+											</div>
+										</a>
+
+
+
+
+
+										<a href="show-7.html" class="news-box">
+											<div class="com-img ofH"><img src="images/20180515/5afab7054a7e5.png" />
+											</div>
+
+											<div class="ndesc">
+												<p class="line1">《Nature 》Spotlight on Shenzhen：A pioneer in drug
+													innovation </p>
+
+												<span class="date">2017/05/25</span>
+												<!--<i class="go-see"></i>-->
+											</div>
+										</a>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<div class="swiper-line">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+
+					</div>
+				</div>
+				<div class="news-swiper " id="news-swiper3">
+					<!-- Swiper -->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+
+							<div class="swiper-slide">
+								<div class="news-block">
+
+									<div class="left com-img ofH">
+										<a href="show-498.html" class="news-box">
+											<img src="images/20180627/5b33314988c43.jpg" />
+											<div class="date">
+												<p class="p1">03/19</p>
+												<p class="p2">2018</p>
+											</div>
+											<div class="ndesc">
+												<p class="line2">关于西达本胺片生产企业名称变更的通知</p>
+												<i class="go-see"></i>
+											</div>
+										</a>
+									</div>
+
+
+
+
+
+									<div class="right">
+
+
+										<a href="show-497.html" class="news-box">
+											<div class="com-img ofH"><img src="images/20180627/5b333085196cc.png" />
+											</div>
+
+											<div class="ndesc">
+												<p class="line1">告患者书</p>
+
+												<span class="date">2017/08/31</span>
+												<!--<i class="go-see"></i>-->
+											</div>
+										</a>
+
+
+
+
+
+										<a href="show-339.html" class="news-box">
+											<div class="com-img ofH"><img src="images/20180627/5b3332385769e.JPG" />
+											</div>
+
+											<div class="ndesc">
+												<p class="line1">公司迁址通知</p>
+
+												<span class="date">2010/07/10</span>
+												<!--<i class="go-see"></i>-->
+											</div>
+										</a>
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+						<!-- Add Pagination -->
+						<div class="swiper-pagination"></div>
+						<div class="swiper-line">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<style>
+
+	</style>
+	<!--首页产品中心-->
+	<div class="Modules  index-product">
+		<div class="contain">
+			<h4 class="title">产品中心</h4>
+			<div class="Msub"></div>
+			<div class="product-swiper">
+				<!-- Swiper -->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<a href="pro_view-2.html" class="product-item">
+								<div class="left">
+									<img src="images/view/cure2.png" class="cure-name" />
+									<div class="page-number">
+										<div class="page">
+											<span>page:</span>
+											<span class="cur"></span>
+											<span>/</span>
+											<span class="page-sum"></span>
+										</div>
+										<div class="page-progress">
+											<span class="active"></span>
+										</div>
+									</div>
+									<div class="product-desc">
+										<h4>西达本胺<span>商品名：爱谱沙® / Epidaza®</span></h4>
+
+										<p>是微芯生物自主研发的具全球专利保护的全新... </p>
+										<div class="more-btn"></div>
+									</div>
+
+								</div>
+								<div class="right com-img ofH">
+									<img src="images/20191225/5e02b7f167e95.jpg" class="cure_img" />
+									<p class="p-name">西达本胺</p>
+								</div>
+							</a>
+						</div>
+					</div>
+					<!-- Add Pagination -->
+					<div class="swiper-pagination"></div>
+
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 视频 - 弹框 -->
+	<div class="media-modal">
+		<div class="mediaModal-contain">
+			<a href="javascript:;" title="宣传视频" class="close"></a>
+			<video controls autoplay name="media">
+				<source src="" type="video/mp4">
+			</video>
+		</div>
+	</div>
+
+	<footer class="Footer-wrapper">
+		<div class="footer-container">
+			<div class="contain clearfix">
+				<dl class="Fnav">
+					<dt><a href="">集团概况</a></dt>
+					<dd><a href="list-1.html#com_01">集团概况</a></dd>
+
+					<dd><a href="list-1.html#com_02">管理团队</a></dd>
+
+					<dd><a href="list-1.html#com_03">发展历程</a></dd>
+
+					<dd><a href="list-38.html">战略合作</a></dd>
+					<dd><a href="list-1.html#com_05">企业文化</a></dd>
+
+					<dd><a href="list-1.html#com_06">社会责任</a></dd>
+
+					<dd><a href="list-1.html#com_07">关怀、关注与报道</a></dd>
+					<dd><a href="list-49.html">公司荣誉</a></dd>
+				</dl>
+				<dl class="Fnav">
+					<dt><a href="">新闻中心</a></dt>
+					<dd><a href="list-16.html">公司新闻</a></dd>
+					<dd><a href="list-17.html">媒体报道</a></dd>
+					<dd><a href="list-43.html">通知公告</a></dd>
+				</dl>
+				<dl class="Fnav">
+					<dt><a href="">核心技术</a></dt>
+
+					<dd><a href="list-3.html#tech_01">技术平台</a></dd>
+
+				</dl>
+				<dl class="Fnav">
+					<dt><a href="list-4.html">研究开发</a></dt>
+					<dd><a href="list-4.html#tech_02">研发中心</a></dd>
+
+					<dd><a href="list-4.html#a1">产品及产品线</a></dd>
+					<dd><a href="list-4.html#tech_03">知识产权</a></dd>
+
+				</dl>
+				<dl class="Fnav">
+					<dt><a href="show-34.html">产业布局</a></dt>
+					<dd><a href="show-34.html">深圳微芯生物...</a></dd>
+					<dd><a href="show-33.html">深圳微芯药业...</a></dd>
+					<dd><a href="show-168.html">成都微芯药业...</a></dd>
+				</dl>
+				<dl class="Fnav">
+					<dt><a href="">人才发展</a></dt>
+
+					<dd><a href="list-6.html#tc_01">人才理念</a></dd>
+
+					<dd><a href="list-6.html#tc_02">培训发展</a></dd>
+
+					<dd><a href="list-6.html#tc_03">薪酬福利</a></dd>
+
+					<dd><a href="list-6.html#tc_04">招聘岗位</a></dd>
+
+					<dd><a href="list-6.html#tc_05">团队建设</a></dd>
+
+					<dd><a href="list-6.html#tc_06">生活环境</a></dd>
+
+				</dl>
+				<dl class="Fnav">
+					<dt><a href="">联系我们</a></dt>
+
+					<dd><a href="show-1.html">联系方式</a></dd>
+					<dd><a href="https://mail.chipscreen.com/" target="_blank">员工邮箱</a></dd>
+
+
+
+				</dl>
+				<div class="Fcode">
+					<div class="logo">
+						<a href="index.html">
+							<img src="images/20180508/5af155250ae38.png" />
+						</a>
+					</div>
+					<div class="desc">
+					</div>
+					<div class="Fcode-img"><img src="images/20180508/5af154c30fc58.png" alt=""></div>
+					<!-- <div class="type">关注微信公众号</div>-->
+				</div>
+			</div>
+		</div>
+		<div class="footer-btm">
+			Copyright © 2016-2019 深圳微芯生物科技股份有限公司版权所有
+			<!-- 深圳微芯生物科技股份有限公司 --> &nbsp;<a href="beian.miit.gov.cn" target="_blank">粤ICP备19091314号-3</a> &nbsp;<a
+				href="http://www.szmynet.com/" target="_blank">网站建设</a>：<a href="http://www.szmynet.com/"
+				target="_blank">卓越迈创</a> &nbsp;
+			<script>
+				var _hmt = _hmt || [];
+				(function () {
+					var hm = document.createElement("script");
+					hm.src = "https://hm.baidu.com/hm.js?34d3fd854519db3d585b99eabe9f9e0b";
+					var s = document.getElementsByTagName("script")[0];
+					s.parentNode.insertBefore(hm, s);
+				})();
+			</script>
+		</div>
+	</footer>
+
+
+	<!-- swiper -->
+	<link rel="stylesheet" type="text/css" href="js/swiper/swiper.min.css">
+	<script type="text/javascript" src="js/swiper/swiper.jquery.min.js"></script>
+	<!-- media -->
+	<link rel="stylesheet" type="text/css" href="js/media/mediaelementplayer.min.css">
+	<script type="text/javascript" src="js/media/mediaelement-and-player.min.js"></script>
+
+
+
+	<script>
+
+	</script>
+</body>
+
+</html>
